@@ -1,0 +1,12 @@
+.row{
+  margin: 8px 0;
+}
+
+.col{
+  min-height: 80px;
+}
+
+.col div {
+  background: rgba(0,160,233,.7);
+  color: #fff;
+}
