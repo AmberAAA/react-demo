@@ -1,20 +1,29 @@
 import * as React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
-import logo from './logo.svg';
+const Home = () => <div><h1>Home</h1></div>;
+const Auth = () => <div><h1>Auth</h1></div>;
+const Users = () => <div><h1>Users</h1></div>;
 
-class App extends React.Component {
-  public render() {
+class App extends React.Component{
+
+  public render(): React.ReactNode {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li><Link to="/" >Home</Link></li>
+              <li><Link to="/auth" >Auth</Link></li>
+              <li><Link to="/users" >Users</Link></li>
+            </ul>
+          </nav>
+
+          <Route path="/" exact={true} component={Home} />
+          <Route path="/auth" component={Auth} />
+          <Route path="/users" component={Users} />
+        </div>
+      </Router>
     );
   }
 }
