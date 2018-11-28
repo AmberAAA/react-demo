@@ -1,8 +1,28 @@
 import * as React from 'react';
+import {Redirect} from 'react-router'
 import './Todo.css'
+import store from '../store/store';
 
-class Todo extends React.Component<{}, {}>{
+class Todo extends React.Component<{}, {}> {
+
+  constructor(props: any, state: any) {
+    super(props, state)
+    const storeState = store.getState();
+    this.state = {
+      user: storeState.user
+    };
+
+  }
+
   public render(): React.ReactNode {
+    // @ts-ignore
+    if (!(this.state.user && this.state.user._id)) {
+      return (
+        // @ts-ignore
+        <Redirect to={{pathname: "/signIn", state: {from: this.props.location }}} />
+      )
+    }
+
     return (
       <div id="todo">
         <div className="main">

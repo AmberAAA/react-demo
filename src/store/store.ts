@@ -1,10 +1,9 @@
 import {InterUser} from "../module";
 import {ActionTypes } from "./action"
 import {applyMiddleware, createStore} from "redux";
-import {ajaxAuth} from './middleWares';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 
-interface InterState {
+export interface InterState {
   padding: boolean,
   errorMsg: string | null,
   user: InterUser | null,
@@ -49,5 +48,5 @@ const composeEnhancers = composeWithDevTools({
   // options like actionSanitizer, stateSanitizer
 });
 export default createStore(AppReducer,
-  composeEnhancers(applyMiddleware(ajaxAuth))
+  composeEnhancers(applyMiddleware())
 )

@@ -6,6 +6,7 @@ import 'antd/lib/input/style/css'
 import {FormEvent} from "react";
 import store from "../store/store";
 import {ActionTypes} from "../store/action";
+import axios from "axios";
 
 const FormItem = Form.Item;
 
@@ -17,7 +18,8 @@ class SignIn extends React.Component<any, any>{
     this.state = {
       padding: storeState.padding,
       user: storeState.user,
-      errorMsg: storeState.errorMsg
+      errorMsg: storeState.errorMsg,
+      show: true
     }
     store.subscribe(() => {this.setState({
       padding: store.getState().padding,
@@ -25,6 +27,7 @@ class SignIn extends React.Component<any, any>{
       errorMsg: store.getState().errorMsg
     })})
   }
+
 
   public submitHandle = (e: FormEvent) => {
     e.preventDefault()
@@ -34,7 +37,8 @@ class SignIn extends React.Component<any, any>{
       if (!err) {
         // console.log('Received values of form: ', JSON.stringify(values));
         // TODO: 异步提交表单
-        store.dispatch({type: ActionTypes.Auth, payload: values})
+        // store.dispatch({type: ActionTypes.Auth, payload: values})
+        this.ajaxAuth(values);
       }
     })
   }
@@ -57,7 +61,7 @@ class SignIn extends React.Component<any, any>{
     return (
       <Form action="#" onSubmit={this.submitHandle} className="sign-form">
         <Modal title="登录"
-               visible={this.props.show}
+               visible={this.state.show}
                confirmLoading={this.state.padding}
                closable={false}
                cancelText="关闭"
@@ -68,7 +72,6 @@ class SignIn extends React.Component<any, any>{
                okButtonProps={{"htmlType": "submit"}}
                getContainer={() => (document.querySelector('.sign-form') as HTMLElement)}
         >
-          {this.state.padding ? '1' : '0'}
           <FormItem label="邮箱" {...formItemLayout}>
             {getFieldDecorator('email', {
               rules: [{
@@ -91,6 +94,33 @@ class SignIn extends React.Component<any, any>{
       </Form>
     )
   }
+
+  private ajaxAuth = (values: any) => {
+    // @ts-ignore
+    store.dispatch({type: ActionTypes.PADDING, payload: true})
+    axios.get("http://anborong.live:9000/api/login", {
+      params: values
+    })
+      .then(data => {
+        // @ts-ignore
+        store.dispatch({type: ActionTypes.PADDING, payload: false})
+        if (data.data.state === 0) {
+          store.dispatch({type: ActionTypes.AuthSuccess, payload: data.data.data})
+          this.setState({show: false})
+          setTimeout(() => {
+            const state = this.props.location.state
+            if (state) {
+              this.props.history.push(state.from)
+            } else {
+              this.props.history.push('/')
+            }
+          }, 300)
+        } else {
+          store.dispatch({type: ActionTypes.AuthFile, payload: data.data.message})
+        }
+      })
+  }
+
 }
 
 export default Form.create()(SignIn)
