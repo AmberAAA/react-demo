@@ -8,6 +8,11 @@
     ]
   },
   "rules": {
-    "ordered-imports": false
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "jsx-no-lambda": false,
+    "no-debugger": false,
+    "interface-name": false
   }
 }

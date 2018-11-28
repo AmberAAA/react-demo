@@ -1,3 +1,9 @@
 .menu-group-title{
   font-size: 12px;
 }
+.sign-form{
+  display: flex;
+  flex-direction: column;
+  height: 7em;
+  justify-content: space-around;
+}
