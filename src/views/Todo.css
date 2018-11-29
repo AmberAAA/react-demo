@@ -3,3 +3,105 @@
     grid-template-columns: 3fr 1fr;
     grid-gap: 16px;
 }
+
+.main{
+    padding-top: 20px;
+}
+
+.main .todo-input{
+    display: block;
+}
+
+.todo-item{
+    height: 38px;
+    border-bottom: 1px solid #e1e3e5;
+    border-top: 1px solid #e1e2e2;
+    border-right: 1px solid #e1e3e5;
+    cursor: pointer;
+    margin-bottom: 4px;
+    clear: both;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    box-sizing: content-box;
+    list-style: none;
+    align-items: center;
+}
+
+.todo-item .todo-button{
+    width: 40px;
+    border-right: 1px solid #fccdcd;
+    display: block;
+    height: 100%;
+}
+
+.todo-item .todo-button i {
+    background-image: url(../img/todo.png);
+    background-position: 9px 5px;
+    display: inline-block;
+    width: 40px;
+    height: 38px;
+}
+
+.todo-item .todo-button i:hover{
+    background-position: -59px 5px;
+}
+
+.todo-item .finish i {
+    background-position: -24px 5px;
+}
+
+.todo-item .todo-title{
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid #fccdcd;
+    margin-left: 1px;
+    height: 36px;
+    line-height: 38px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 5px;
+    color: rgba(0,0,0,0.9);
+}
+
+.todo-item:hover{
+    background: #fdfae8;
+    border-bottom: 1px solid #bcc4cc;
+    border-top: 1px solid #bcc4cc;
+    border-right: 1px solid #bcc4cc;
+    -moz-box-shadow: 0 1px 2px #DDDDDD;
+    -webkit-box-shadow: 0 1px 2px #DDDDDD;
+    box-shadow: 0 1px 2px #DDDDDD;
+}
+
+.todo-item .todo-block{
+    display: block;
+    height: 100%;
+    width: 7px;
+    background: #bbc9d5;
+}
+
+.todo-item .todo-start{
+    border-left: 1px solid #fccdcd;
+    height: 36px;
+}
+
+.todo-item .todo-start i{
+    width: 40px;
+    display: inline-block;
+    height: 36px;
+    background-image: url(../img/todo.png);
+    background-position: -21px -26px;
+    background-repeat: no-repeat;
+    /*-53px -26px*/
+}
+
+.todo-item:hover .todo-block{
+    background: #2b83bf;
+}
+
+.todo-item + .todo-item{
+    margin-top: 12px;
+}

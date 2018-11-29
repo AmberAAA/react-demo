@@ -3,3 +3,19 @@ export interface InterUser {
   passwd: string,
   _id ?: string
 }
+
+
+// const HOST = `http://anborong.live:9000`;
+const HOST = `http://127.0.0.1:8080`;
+
+export const url = {
+  auth: `${HOST}/api/login`,
+  todo: `${HOST}/api/todo`
+};
+
+export interface TODO {
+  _id: string,
+  owner: string,
+  title: string,
+  list: []
+}

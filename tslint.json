@@ -13,6 +13,7 @@
     "no-console": false,
     "jsx-no-lambda": false,
     "no-debugger": false,
-    "interface-name": false
+    "interface-name": false,
+    "no-unused-expression": false
   }
 }

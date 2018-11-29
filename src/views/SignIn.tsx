@@ -7,10 +7,14 @@ import {FormEvent} from "react";
 import store from "../store/store";
 import {ActionTypes} from "../store/action";
 import axios from "axios";
+import { url } from "../module"
 
 const FormItem = Form.Item;
 
 class SignIn extends React.Component<any, any>{
+
+
+  private store$: any;
 
   constructor (props: any, stats: any) {
     super(props, stats)
@@ -21,13 +25,20 @@ class SignIn extends React.Component<any, any>{
       errorMsg: storeState.errorMsg,
       show: true
     }
-    store.subscribe(() => {this.setState({
+
+  }
+
+  public componentWillMount = () => {
+    this.store$ = store.subscribe(() => {this.setState({
       padding: store.getState().padding,
       user: store.getState().user,
       errorMsg: store.getState().errorMsg
     })})
   }
 
+  public componentWillUnmount = () => {
+    this.store$()
+  }
 
   public submitHandle = (e: FormEvent) => {
     e.preventDefault()
@@ -96,14 +107,12 @@ class SignIn extends React.Component<any, any>{
   }
 
   private ajaxAuth = (values: any) => {
-    // @ts-ignore
-    store.dispatch({type: ActionTypes.PADDING, payload: true})
-    axios.get("http://anborong.live:9000/api/login", {
+    store.dispatch({type: ActionTypes.PADDING, payload: true});
+    axios.get(url.auth, {
       params: values
     })
       .then(data => {
-        // @ts-ignore
-        store.dispatch({type: ActionTypes.PADDING, payload: false})
+        store.dispatch({type: ActionTypes.PADDING, payload: false});
         if (data.data.state === 0) {
           store.dispatch({type: ActionTypes.AuthSuccess, payload: data.data.data})
           this.setState({show: false})
