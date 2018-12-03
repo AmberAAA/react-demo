@@ -80,7 +80,9 @@ class Todo extends React.Component<RouteProps, State> {
 
   public TodoItem = (props: {todo: TODO}) => {
     return (
-      <li className="todo-item" onClick={e => this.deleteTodoHandle(props.todo, e)}>
+      <li className="todo-item"
+          // onClick={e => this.deleteTodoHandle(props.todo, e)}
+      >
         <i className="todo-block" />
         <span className="todo-button unfinish"><i/></span>
         <p className="todo-title">{props.todo.title}</p>

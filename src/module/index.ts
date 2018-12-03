@@ -5,8 +5,8 @@ export interface InterUser {
 }
 
 
-// const HOST = `http://anborong.live:9000`;
-const HOST = `http://127.0.0.1:8080`;
+const HOST = ``;
+// const HOST = `http://127.0.0.1:8080`;
 
 export const url = {
   auth: `${HOST}/api/login`,
