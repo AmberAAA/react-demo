@@ -164,13 +164,13 @@ class Todo extends React.Component<RouteProps, State> {
 
   private changeTODO = (todo: TODO) => {
     // store.dispatch({type:ActionTypes.MODIFYTODOLIST, payload: todo});
-    const id = todo._id;
+    const _id = todo._id;
     delete todo._id;
     store.dispatch({type: ActionTypes.DELETETODOLIST, payload: todo})
     setTimeout(() => {
-      store.dispatch({type: ActionTypes.ADDTODOLIST, payload: todo})
+      store.dispatch({type: ActionTypes.ADDTODOLIST, payload: {...todo, _id}})
     }, 400)
-    axios.put(`${url.todo}?id=${id}`, todo)
+    axios.put(`${url.todo}?id=${_id}`, todo)
       .then((data: any) => {
         if (data.data.state === 0) {
           // store.dispatch({type:ActionTypes.MODIFYTODOLIST, payload: data.data.data});

@@ -6897,7 +6897,7 @@ raf@3.4.0:
   dependencies:
     performance-now "^2.1.0"
 
-raf@^3.4.0:
+raf@^3.4.0, raf@~3.4.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
   integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
@@ -7157,6 +7157,15 @@ rc-progress@~2.2.6:
     babel-runtime "6.x"
     prop-types "^15.5.8"
 
+rc-queue-anim@^1.6.8:
+  version "1.6.8"
+  resolved "https://registry.yarnpkg.com/rc-queue-anim/-/rc-queue-anim-1.6.8.tgz#e6bbae76e6f3eb732a727fd5f9eeb1d9f9fdf081"
+  integrity sha512-OHt02RxzdjOWA3tVxqDDvAWCDeLnfT2tFODvc3cji0O6dc1HufHYQSjHoqpi7C6bYaHqpAqWLnBtBbpR3l2WmA==
+  dependencies:
+    babel-runtime "6.x"
+    prop-types "^15.6.0"
+    rc-tween-one "^2.2.8"
+
 rc-rate@~2.4.2:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/rc-rate/-/rc-rate-2.4.3.tgz#70434905faf84c9a0694bec4bdbd9b9a9099318f"
@@ -7321,6 +7330,17 @@ rc-trigger@^3.0.0-rc.2:
     rc-align "^2.4.1"
     rc-animate "^3.0.0-rc.1"
     rc-util "^4.4.0"
+
+rc-tween-one@^2.2.8:
+  version "2.2.18"
+  resolved "https://registry.yarnpkg.com/rc-tween-one/-/rc-tween-one-2.2.18.tgz#7fa386a53fd94edacb93f11c36bf822fa32e181a"
+  integrity sha512-WE9BRk+C+6pyOqNI8BX4JSaWkbl8ENtFZuaELGzYLl46q+x89E66NfCh0sZ4a0w/I/4zPhBxrCkyXNZOqIKkMA==
+  dependencies:
+    babel-runtime "6.x"
+    prop-types "^15.6.1"
+    raf "~3.4.0"
+    style-utils "~0.1.13"
+    tween-functions "~1.2.0"
 
 rc-upload@~2.6.0:
   version "2.6.0"
@@ -8494,6 +8514,11 @@ style-loader@0.19.0:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
 
+style-utils@~0.1.13:
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/style-utils/-/style-utils-0.1.22.tgz#46a3f2cd4499603a46169352ac1ed01f23470aa0"
+  integrity sha512-WOCiagsn/TqMcbxKAP8+59WHQaszLzKGluzRCTO15VH2gboFRy8VAk2aTU8+YBu2oNJtf7AFNdqh5JkKUkOVpA==
+
 subarg@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/subarg/-/subarg-1.0.0.tgz#f62cf17581e996b48fc965699f54c06ae268b8d2"
@@ -8857,6 +8882,11 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
+
+tween-functions@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tween-functions/-/tween-functions-1.2.0.tgz#1ae3a50e7c60bb3def774eac707acbca73bbc3ff"
+  integrity sha1-GuOlDnxguz3vd06scHrLynO7w/8=
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
