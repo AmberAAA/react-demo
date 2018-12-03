@@ -24,3 +24,7 @@ body {
 body, html{
   font-family: "lucida Grande",Verdana,"Microsoft YaHei";
 }
+
+.flex {
+    display: flex;
+}

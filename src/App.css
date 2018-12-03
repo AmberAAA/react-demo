@@ -7,3 +7,7 @@
   height: 7em;
   justify-content: space-around;
 }
+
+.flex {
+    display: flex;
+}

@@ -28,6 +28,10 @@
     align-items: center;
 }
 
+.todo-item-finish {
+    text-decoration: line-through solid rgba(0, 0, 0, 0.9);
+}
+
 .todo-item .todo-button{
     width: 40px;
     border-right: 1px solid #fccdcd;
@@ -41,6 +45,14 @@
     display: inline-block;
     width: 40px;
     height: 38px;
+}
+
+.todo-item-finish .todo-button i {
+    background-position: -23px 5px;
+}
+
+.todo-item-finish .todo-button i {
+    background-position: -22px 5px;
 }
 
 .todo-item .todo-button i:hover{
@@ -93,9 +105,13 @@
     display: inline-block;
     height: 36px;
     background-image: url(../img/todo.png);
-    background-position: -21px -26px;
+    background-position: -54px -26px;
     background-repeat: no-repeat;
     /*-53px -26px*/
+}
+
+.todo-item .mark i {
+    background-position: -21px -26px;
 }
 
 .todo-item:hover .todo-block{
@@ -104,4 +120,40 @@
 
 .todo-item + .todo-item{
     margin-top: 12px;
+}
+
+.main-input {
+    background-image: url(../img/enter.png) !important;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: 9px;
+    border: 2px dashed #ccc !important;
+    flex-grow: 1;
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 16px;
+    color: #434343;
+    transition: all .25s ease-in;
+}
+
+.main-input:focus {
+    border: 2px dashed #7dbad8 !important;
+    outline: none !important;
+}
+
+#todo .main .main-input:hover {
+    border-left-width: 2px !important;
+}
+
+.main-input::placeholder {
+    color: #cccccc;
+}
+
+.main-input:disabled {
+    background-color: rgba(229, 229, 229, .4) !important;
+}
+
+.main ul {
+    margin: 0;
+    padding: 0;
 }

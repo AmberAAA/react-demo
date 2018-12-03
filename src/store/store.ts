@@ -47,6 +47,17 @@ function AppReducer (state = initState, action:{type: string, payload: any}) {
       }
     }
 
+    case ActionTypes.MODIFYTODOLIST: {
+      state.todoList = state.todoList.map(todo => {
+        if (todo._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return todo
+        }
+      });
+      return state
+    }
+
     case ActionTypes.ADDTODOLIST: {
       state.todoList.push(action.payload)
       return state;
