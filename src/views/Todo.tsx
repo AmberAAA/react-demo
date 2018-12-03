@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Redirect, RouteProps} from 'react-router'
 import './Todo.css'
 import store from '../store/store';
-import { Row, Col, Input } from "antd";
+import {Row, Col, Input} from "antd";
 import {InterUser, TODO, url} from "../module";
 import {ChangeEvent} from "react";
 import axios from "axios";
@@ -20,97 +20,115 @@ class Todo extends React.Component<RouteProps, State> {
   private store$: any;
 
   constructor(props: any, state: State) {
-    super(props, state)
+    super(props, state);
     const storeState = store.getState();
     this.state = {
       user: storeState.user,
       padding: storeState.padding,
       todos: [],
-      input: ''
+      input: '',
     };
     store.subscribe(() => {
-      const state1 = store.getState()
+      const state1 = store.getState();
       this.setState({
         user: state1.user,
         padding: state1.padding,
-        todos: state1.todoList
+        todos: state1.todoList,
       })
     })
   }
 
   public componentWillMount = () => {
     this.store$ = store.subscribe(() => {
-      const state1 = store.getState()
+      const state1 = store.getState();
       this.setState({
         user: state1.user,
         padding: state1.padding,
       })
-    })
+    });
     this.getTODOList();
-  }
+    this.setInputFocus();
+  };
 
   public componentWillUnmount = () => {
     this.store$();
-  }
+  };
 
   public getTODOList = () => {
     if (this.state.user && this.state.user._id) {
-      axios.get(url.todo, { params:{ id:  this.state.user._id} } )
+      axios.get(url.todo, {params: {id: this.state.user._id}})
         .then(data => {
           if (data.data.state === 0) {
-            // TODO: dispatch todo list
-            store.dispatch({ type: ActionTypes.SETTODOLIST, payload: data.data.data })
+            store.dispatch({type: ActionTypes.SETTODOLIST, payload: data.data.data})
           }
         })
     }
-  }
+  };
 
   public addTODOList = (payload: any) => {
-    store.dispatch( {type: ActionTypes.PADDING, payload: true})
+    store.dispatch({type: ActionTypes.PADDING, payload: true});
     axios.post(url.todo, payload)
       .then(data => {
         if (data.data.state === 0) {
-          store.dispatch({ type: ActionTypes.ADDTODOLIST, payload: data.data.data })
-          this.setState({input: ""})
+          store.dispatch({type: ActionTypes.ADDTODOLIST, payload: data.data.data});
+          this.setState({input: ""});
         }
-        store.dispatch( {type: ActionTypes.PADDING, payload: false})
+        store.dispatch({type: ActionTypes.PADDING, payload: false});
+        setTimeout(() => this.setInputFocus(), 50)
       })
-  }
+  };
 
 
-  public TodoItem = (props: {todo: TODO}) => {
+  public TodoItem = (props: { todo: TODO }) => {
     return (
       <li className="todo-item"
-          // onClick={e => this.deleteTodoHandle(props.todo, e)}
+        // onClick={e => this.deleteTodoHandle(props.todo, e)}
       >
-        <i className="todo-block" />
+        <i className="todo-block"/>
         <span className="todo-button unfinish"><i/></span>
         <p className="todo-title">{props.todo.title}</p>
-        <span className="todo-start"><i /></span>
+        <span className="todo-start"><i/></span>
       </li>
     )
-  }
+  };
 
-  public TodoList = (todos: TODO[]) => todos.map(todo => <this.TodoItem todo={todo} key={todo._id}/>)
+  public TodoList = (todos: TODO[]) => todos.map(todo => <this.TodoItem todo={todo} key={todo._id}/>);
 
-  public deleteTodoHandle = (todo: TODO, e:any) => {
-    e.preventDefault()
-    if (this.state.padding) { return; }
-    store.dispatch({type:ActionTypes.PADDING, payload: true});
+  public deleteTodoHandle = (todo: TODO, e: any) => {
+    e.preventDefault();
+    if (this.state.padding) {
+      return;
+    }
+    store.dispatch({type: ActionTypes.PADDING, payload: true});
     axios.delete(url.todo, {
       params: {_id: todo._id}
     })
-      .then(data => {
-        store.dispatch({type:ActionTypes.PADDING, payload: false});
-        store.dispatch({type:ActionTypes.DELETETODOLIST, payload: todo})
+      .then(() => {
+        store.dispatch({type: ActionTypes.PADDING, payload: false});
+        store.dispatch({type: ActionTypes.DELETETODOLIST, payload: todo});
       })
-  }
+  };
+
+  public inputChangHandle = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({input: e.target.value})
+  };
+
+
+  public enterHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      this.addTODOList({
+        owner: this.state.user._id,
+        title: this.state.input,
+        list: []
+      })
+    }
+  };
 
 
   public render(): React.ReactNode {
     if (!(this.state.user && this.state.user._id)) {
       return (
-        <Redirect to={{pathname: "/signIn", state: {from: this.props.location }}} />
+        <Redirect to={{pathname: "/signIn", state: {from: this.props.location}}}/>
       )
     }
 
@@ -125,6 +143,7 @@ class Todo extends React.Component<RouteProps, State> {
                      onChange={this.inputChangHandle}
                      onKeyDown={this.enterHandle}
                      disabled={this.state.padding}
+                     autoFocus={true}
               />
             </Col>
             <Col span={20}>
@@ -146,19 +165,10 @@ class Todo extends React.Component<RouteProps, State> {
     )
   }
 
-
-  public inputChangHandle  = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({input: e.target.value})
-  }
-
-
-  public enterHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      this.addTODOList({
-        owner: this.state.user._id,
-        title: this.state.input,
-        list: []
-      })
+  private setInputFocus = () => {
+    const inputDom = document.querySelector("#todo .main input") as HTMLInputElement;
+    if (inputDom) {
+      inputDom.focus()
     }
   }
 }
