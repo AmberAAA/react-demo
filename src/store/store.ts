@@ -74,10 +74,10 @@ function AppReducer (state = initState, action:{type: string, payload: any}) {
   }
 }
 
-
 const composeEnhancers = composeWithDevTools({
   // options like actionSanitizer, stateSanitizer
 });
 export default createStore(AppReducer,
+  {user: JSON.parse(window.localStorage.getItem("user") as string)},
   composeEnhancers(applyMiddleware())
 )

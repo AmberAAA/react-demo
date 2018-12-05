@@ -157,3 +157,13 @@
     margin: 0;
     padding: 0;
 }
+
+.edit-subtitle {
+    font-size: 12px;
+}
+
+.edit-placeholder {
+    font-size: 12px;
+    cursor: pointer;
+}
+

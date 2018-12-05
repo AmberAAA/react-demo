@@ -9,12 +9,16 @@ import axios from "axios";
 import {ActionTypes} from "../store/action";
 import {sort} from "../module";
 import QueueAnim from "rc-queue-anim";
+import TodoModal from "./TodoModal";
 
 interface State {
   user: InterUser,
   padding: boolean,
   todos: TODO[],
-  input: string
+  input: string,
+  hiddenEditInput: boolean,
+  modifyTodo: TODO | null,
+  TodoModalVisible: boolean
 }
 
 class Todo extends React.Component<RouteProps, State> {
@@ -29,6 +33,9 @@ class Todo extends React.Component<RouteProps, State> {
       padding: storeState.padding,
       todos: [],
       input: '',
+      hiddenEditInput: true,
+      modifyTodo: null,
+      TodoModalVisible: false
     };
   }
 
@@ -87,6 +94,21 @@ class Todo extends React.Component<RouteProps, State> {
                      className={"main-input"}
               />
             </Col>
+
+          </Row>
+          <Row type="flex" justify="center">
+            <Col span={20}>
+              {this.state.modifyTodo &&
+			        <TodoModal todo={this.state.modifyTodo}
+			                   onSave={e => this.modfyTdoHandle(e)}
+			                   onCancle={this.cancleHandle}
+			                   onDelete={e => this.deleteTodoHandle(e)}
+			                   visible={this.state.TodoModalVisible}
+			        />
+              }
+            </Col>
+          </Row>
+          <Row type="flex" justify="center">
             <Col span={20}>
               <QueueAnim type={["right", "left"]}
                          ease={['easeOutQuart', 'easeInOutQuart']}
@@ -141,7 +163,7 @@ class Todo extends React.Component<RouteProps, State> {
       <li className={`todo-item ${props.todo.finish && "todo-item-finish"}`}>
         <i className="todo-block"/>
         <span className="todo-button" onClick={e => this.changeFinish(props.todo, e)}><i/></span>
-        <p className="todo-title">{props.todo.title}</p>
+        <p className="todo-title" onClick={e => this.showModal(props.todo, e)}>{props.todo.title}</p>
         <span className={`todo-start ${props.todo.star ? "mark" : ""}`}
               onClick={e => this.changeStart(props.todo, e)}><i/></span>
       </li>
@@ -163,7 +185,6 @@ class Todo extends React.Component<RouteProps, State> {
   };
 
   private changeTODO = (todo: TODO) => {
-    // store.dispatch({type:ActionTypes.MODIFYTODOLIST, payload: todo});
     const _id = todo._id;
     delete todo._id;
     store.dispatch({type: ActionTypes.DELETETODOLIST, payload: todo})
@@ -185,20 +206,46 @@ class Todo extends React.Component<RouteProps, State> {
       })
   };
 
-  // private deleteTodoHandle = (todo: TODO, e: any) => {
-  //   e.preventDefault();
-  //   if (this.state.padding) {
-  //     return;
-  //   }
-  //   store.dispatch({type: ActionTypes.PADDING, payload: true});
-  //   axios.delete(url.todo, {
-  //     params: {_id: todo._id}
-  //   })
-  //     .then(() => {
-  //       store.dispatch({type: ActionTypes.PADDING, payload: false});
-  //       store.dispatch({type: ActionTypes.DELETETODOLIST, payload: todo});
-  //     })
-  // };
+  private modfyTdoHandle = (todo: TODO) => {
+    if (this.state.padding) {
+      return;
+    }
+    this.hiddenModal()
+    store.dispatch({type: ActionTypes.PADDING, payload: true});
+    const {_id, ..._todo} = todo;
+    axios.put(`${url.todo}?id=${_id}`, _todo)
+      .then(() => {
+        store.dispatch({type: ActionTypes.PADDING, payload: false});
+        store.dispatch({type: ActionTypes.MODIFYTODOLIST, payload: todo});
+      })
+  }
+
+  private deleteTodoHandle = (todo: TODO) => {
+    this.hiddenModal();
+    store.dispatch({type: ActionTypes.PADDING, payload: true});
+    axios.delete(url.todo, {
+      params: {_id: todo._id}
+    })
+      .then(() => {
+        store.dispatch({type: ActionTypes.PADDING, payload: false});
+        store.dispatch({type: ActionTypes.DELETETODOLIST, payload: todo});
+      })
+  };
+
+  private cancleHandle = () => {
+    this.hiddenModal();
+  }
+
+  private hiddenModal = () => {
+    this.setState({TodoModalVisible: false});
+  };
+
+  private showModal = (todo: TODO, e: React.MouseEvent) => {
+    e.preventDefault();
+    const modifyTodo = JSON.parse(JSON.stringify(todo));
+    console.log(modifyTodo)
+    this.setState({modifyTodo, TodoModalVisible: true})
+  }
 
   private setInputFocus = () => {
     const inputDom = document.querySelector("#todo .main input") as HTMLInputElement;

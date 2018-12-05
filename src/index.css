@@ -28,3 +28,27 @@ body, html{
 .flex {
     display: flex;
 }
+
+.gray-5 {
+    color: #d9d9d9;
+}
+
+.gray-6 {
+    color: #bfbfbf;
+}
+
+.gray-7 {
+    color: #8c8c8c;
+}
+
+.gray-8 {
+    color: #595959;
+}
+
+.gray-9 {
+    color: #262626;
+}
+
+.bold {
+    font-weight: bold;
+}

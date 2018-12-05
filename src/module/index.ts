@@ -18,13 +18,17 @@ export interface TODO {
   _id: string,
   owner: string,
   title: string,
-  list: [],
+  list: TODODetails[],
   star?: boolean,
   finish?: boolean,
   addTime: any,
   modifiedTime: any
 }
 
+export interface TODODetails {
+  name: string,
+  finish: boolean
+}
 
 // 排序条件
 // 1. 加星的必须排到前面， 再按照modify时间倒叙排列

@@ -8,11 +8,15 @@ import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
 import 'antd/lib/button/style/css'
 import { Button } from 'antd'
+import store from "./store/store"
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class App extends React.Component {
+
+  private store$: any;
+
   public render() {
     return <Router>
       <div className="app">
@@ -29,6 +33,21 @@ class App extends React.Component {
         <AppRouter/>
       </div>
     </Router>;
+  }
+
+  public componentDidMount(): void {
+    let id: string | null = '';
+    this.store$ = store.subscribe(() => {
+      const user = store.getState().user
+      if (user && id !== user._id) {
+        id = user._id;
+        window.localStorage.setItem('user', JSON.stringify(user))
+      }
+    })
+  }
+
+  public componentWillUnmount(): void {
+    this.store$()
   }
 }
 
