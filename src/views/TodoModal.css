@@ -34,3 +34,9 @@
     padding: 16px;
     font-size: 16px;
 }
+
+.todo-modal-footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0 0 0;
+}

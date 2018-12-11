@@ -71,7 +71,7 @@ class TodoModal extends React.Component<Props, State> {
                placeholder={"回车保存步骤"}
         />
         {/*<p className={"gray-6"}>设置分类</p>*/}
-        <div className="footer">
+        <div className="todo-modal-footer">
           <Button htmlType={"button"} type={"danger"} onClick={() => this.sendEmmit(this.props.onDelete)}>删除</Button>
           <Button htmlType={"button"} type={"primary"} onClick={() => this.sendEmmit(this.props.onSave)}>确定</Button>
           <Button htmlType={"button"} onClick={() => this.sendEmmit(this.props.onCancle)}>取消</Button>
