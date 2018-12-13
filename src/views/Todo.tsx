@@ -71,6 +71,50 @@ class Todo extends React.Component<RouteProps, State> {
     }
   };
 
+  public renderInput = () => (
+    <Row type="flex" justify="center">
+      <Col span={20} className={"flex"}>
+        <input width={"100%"}
+               placeholder={"新建事件 回车保存"}
+               value={this.state.input}
+               onChange={this.inputChangHandle}
+               onKeyDown={this.enterHandle}
+               disabled={this.state.padding}
+               autoFocus={true}
+               className={"main-input"}
+        />
+      </Col>
+    </Row>
+  );
+
+  public renderTodoModal = () => (
+    <Row type="flex" justify="center">
+      <Col span={20}>
+        {this.state.modifyTodo &&
+				<TodoModal todo={this.state.modifyTodo}
+				           onSave={e => this.modfyTdoHandle(e)}
+				           onCancle={this.cancleHandle}
+				           onDelete={e => this.deleteTodoHandle(e)}
+				           visible={this.state.TodoModalVisible}
+				/>
+        }
+      </Col>
+    </Row>
+  )
+
+  public renderTodo = (props: { todos: TODO[] }) => (
+    <Row type="flex" justify="center">
+      <Col span={20}>
+        <QueueAnim type={["right", "left"]}
+                   ease={['easeOutQuart', 'easeInOutQuart']}
+                   component={"ul"}
+        >
+          {this.TodoList(props.todos)}
+        </QueueAnim>
+      </Col>
+    </Row>
+  )
+
 
   public render(): React.ReactNode {
     if (!(this.state.user && this.state.user._id)) {
@@ -82,42 +126,9 @@ class Todo extends React.Component<RouteProps, State> {
     return (
       <div id="todo">
         <div className="main">
-          <Row type="flex" justify="center">
-            <Col span={20} className={"flex"}>
-              <input width={"100%"}
-                     placeholder={"新建事件 回车保存"}
-                     value={this.state.input}
-                     onChange={this.inputChangHandle}
-                     onKeyDown={this.enterHandle}
-                     disabled={this.state.padding}
-                     autoFocus={true}
-                     className={"main-input"}
-              />
-            </Col>
-
-          </Row>
-          <Row type="flex" justify="center">
-            <Col span={20}>
-              {this.state.modifyTodo &&
-			        <TodoModal todo={this.state.modifyTodo}
-			                   onSave={e => this.modfyTdoHandle(e)}
-			                   onCancle={this.cancleHandle}
-			                   onDelete={e => this.deleteTodoHandle(e)}
-			                   visible={this.state.TodoModalVisible}
-			        />
-              }
-            </Col>
-          </Row>
-          <Row type="flex" justify="center">
-            <Col span={20}>
-              <QueueAnim type={["right", "left"]}
-                         ease={['easeOutQuart', 'easeInOutQuart']}
-                         component={"ul"}
-              >
-                {this.TodoList(this.state.todos)}
-              </QueueAnim>
-            </Col>
-          </Row>
+          <this.renderInput/>
+          <this.renderTodoModal/>
+          <this.renderTodo todos={this.state.todos}/>
         </div>
         <div className="right">
           <nav>
@@ -132,6 +143,20 @@ class Todo extends React.Component<RouteProps, State> {
       </div>
     )
   }
+
+  public TodoItem = (props: { todo: TODO }) => {
+    return (
+      <li className={`todo-item ${props.todo.finish && "todo-item-finish"}`}>
+        <i className="todo-block"/>
+        <span className="todo-button" onClick={e => this.changeFinish(props.todo, e)}><i/></span>
+        <p className="todo-title" onClick={e => this.showModal(props.todo, e)}>{props.todo.title}</p>
+        <span className={`todo-start ${props.todo.star ? "mark" : ""}`}
+              onClick={e => this.changeStart(props.todo, e)}><i/></span>
+      </li>
+    )
+  };
+
+  public TodoList = (todos: TODO[]) => todos.map(todo => <this.TodoItem todo={todo} key={todo._id}/>);
 
 
   private getTODOList = () => {
@@ -157,20 +182,6 @@ class Todo extends React.Component<RouteProps, State> {
         setTimeout(() => this.setInputFocus(), 50)
       })
   };
-
-  private TodoItem = (props: { todo: TODO }) => {
-    return (
-      <li className={`todo-item ${props.todo.finish && "todo-item-finish"}`}>
-        <i className="todo-block"/>
-        <span className="todo-button" onClick={e => this.changeFinish(props.todo, e)}><i/></span>
-        <p className="todo-title" onClick={e => this.showModal(props.todo, e)}>{props.todo.title}</p>
-        <span className={`todo-start ${props.todo.star ? "mark" : ""}`}
-              onClick={e => this.changeStart(props.todo, e)}><i/></span>
-      </li>
-    )
-  };
-
-  private TodoList = (todos: TODO[]) => todos.map(todo => <this.TodoItem todo={todo} key={todo._id}/>);
 
   private changeStart = (todo: TODO, e: FormEvent) => {
     e.preventDefault();
@@ -243,7 +254,6 @@ class Todo extends React.Component<RouteProps, State> {
   private showModal = (todo: TODO, e: React.MouseEvent) => {
     e.preventDefault();
     const modifyTodo = JSON.parse(JSON.stringify(todo));
-    console.log(modifyTodo)
     this.setState({modifyTodo, TodoModalVisible: true})
   }
 
