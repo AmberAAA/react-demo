@@ -24,6 +24,7 @@ class App extends React.Component {
           <SubMenu title={<span className="submenu-title-wrapper"><Icon type="bars"/>练习DEMO</span>}>
             <MenuItemGroup title={<span className="menu-group-title">布局</span>}>
               <Menu.Item key="setting:1"><Link to="/demo/girds">栅格布局</Link> </Menu.Item>
+              <Menu.Item key="setting:5"><Link to="/games">一个小游戏</Link> </Menu.Item>
             </MenuItemGroup>
           </SubMenu>
           <Menu.Item key="setting:2" ><Link to="/todo">Todo</Link></Menu.Item>
