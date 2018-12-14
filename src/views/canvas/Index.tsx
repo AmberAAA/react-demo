@@ -30,16 +30,16 @@ interface CutImage {
 const INFO = {
   CANVAS_WIDTH: 640,
   CANCAS_HEIGHT: 450
-}
+};
+
+let answer: CutImage[];
 
 class Game extends React.Component<Props, Stats> {
 
   public static defaultProps = {};
 
-
-  private img: HTMLImageElement;
-
   public canvas: HTMLCanvasElement;
+  private img: HTMLImageElement;
 
   constructor(props: Props, stats: Stats) {
     super(props, stats);
@@ -49,8 +49,8 @@ class Game extends React.Component<Props, Stats> {
       answerImaArray: [],
       activeIndex: '',
       config: {
-        row: 2,
-        col: 2
+        row: 10,
+        col: 10
       }
     }
   }
@@ -65,9 +65,10 @@ class Game extends React.Component<Props, Stats> {
     canvas.width = img.width / config.col;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      for (let c = 0; c < config.col; c++) {
-        for (let r = 0; r < config.row; r++) {
+      for (let r = 0; r < config.row; r++) {
+        for (let c = 0; c < config.col; c++) {
           ctx.drawImage(img, -c * canvas.width, -r * canvas.height);
+          // console.log(c,r)
           imgs.push({
             c,
             r,
@@ -87,9 +88,14 @@ class Game extends React.Component<Props, Stats> {
       reader.onload = (ee: ProgressEvent) => {
         this.img = new Image()
         this.img.onload = () => {
-          const imgArray = Game.cutImg(this.img, this.state.config)
+          debugger
+          const back = Game.cutImg(this.img, this.state.config)
+          // @ts-ignore
+          answer = [].concat(back);
+          // @ts-ignore
+          const imgArray: CutImage[] = [].concat(back.sort(() => Math.random() > 0.5 ? 1 : -1))
           const answerImaArray = imgArray.map(item => {
-            return Object.assign({}, item, {data: 'https://place-hold.it/1x1/eee?text='})
+            return Object.assign([], item, {data: 'https://place-hold.it/1x1/eee?text='})
           })
           this.setState({imgArray, answerImaArray})
         }
@@ -132,6 +138,7 @@ class Game extends React.Component<Props, Stats> {
         <Row type={"flex"} justify={"center"}>
           {this.state.imgArray.map((e, index) =>
             <Col key={index}
+                 order={index}
                  onDragOver={this.onDragOverHandle}
             >
               <img src={e.data}
@@ -181,6 +188,9 @@ class Game extends React.Component<Props, Stats> {
       e.dataTransfer.clearData('map2beck')
     }
     this.setState({activeIndex: ''});
+    setTimeout(() => {
+      this.checkAnswer();
+    })
   };
 
   public onDropDeckHand = (e: React.DragEvent, payload: number) => {
@@ -202,6 +212,21 @@ class Game extends React.Component<Props, Stats> {
     e.dataTransfer.setData('map2map', i.toString())
     e.dataTransfer.setData('map2beck', i.toString())
   };
+
+  public checkAnswer = () => {
+    if (answer) {
+      for (let i = 0; i < answer.length; i++) {
+        if (/^http/.test(this.state.answerImaArray[i].data)) {
+          return;
+        }
+        if (answer[i].data !== this.state.answerImaArray[i].data) {
+          return;
+        }
+      }
+      alert('NICE!');
+    }
+  };
+
 
   private renderGameMap = () => {
     return this.state.answerImaArray.map((e, i) => {
