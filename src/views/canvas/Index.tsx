@@ -36,25 +36,6 @@ let answer: CutImage[];
 
 class Game extends React.Component<Props, Stats> {
 
-  public static defaultProps = {};
-
-  public canvas: HTMLCanvasElement;
-  private img: HTMLImageElement;
-
-  constructor(props: Props, stats: Stats) {
-    super(props, stats);
-    this.state = {
-      imgPath: undefined,
-      imgArray: [],
-      answerImaArray: [],
-      activeIndex: '',
-      config: {
-        row: 10,
-        col: 10
-      }
-    }
-  }
-
   public static cutImg(img: HTMLImageElement, config: Config) {
     if (img.width / img.height < 0.666 && img.width / img.height > 1.5) {
       // TODO: 不好
@@ -78,6 +59,26 @@ class Game extends React.Component<Props, Stats> {
       }
     }
     return imgs
+  }
+
+  public static defaultProps = {};
+
+  public canvas: HTMLCanvasElement;
+
+  private img: HTMLImageElement;
+
+  constructor(props: Props, stats: Stats) {
+    super(props, stats);
+    this.state = {
+      imgPath: undefined,
+      imgArray: [],
+      answerImaArray: [],
+      activeIndex: '',
+      config: {
+        row: 10,
+        col: 10
+      }
+    }
   }
 
   public handleInputChange = (e: React.FormEvent) => {
