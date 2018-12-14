@@ -1,0 +1,19 @@
+canvas {
+    width: 600px;
+    height: 400px;
+}
+
+.game-card-img {
+    transition: all .3s ease-in;
+}
+
+.game-map .active {
+    box-shadow: 0 3px 20px 4px rgba(43, 131, 191, 0.34);
+    position: relative;
+    z-index: 10;
+    transform: scale(1.05);
+}
+
+.img-block {
+    cursor: pointer;
+}
