@@ -1,10 +1,7 @@
-import {Input, Modal} from "antd";
 import * as React from "react";
 import {TODO} from "../module";
-import {Checkbox} from 'antd';
-import "antd/lib/checkbox/style/css";
 import "./TodoModal.css"
-import Button from "antd/lib/button/button";
+import {Button, Input, Modal, Checkbox} from 'antd';
 
 
 interface Props {

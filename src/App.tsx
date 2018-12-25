@@ -1,13 +1,9 @@
 import * as React from 'react';
 import './App.css';
-import Menu from 'antd/lib/menu'
-import Icon from 'antd/lib/icon'
-import 'antd/lib/menu/style/css'
-import 'antd/lib/icon/style/css'
 import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
 import 'antd/lib/button/style/css'
-import { Button } from 'antd'
+import {Button, Menu, Icon} from 'antd'
 import store from "./store/store"
 
 const SubMenu = Menu.SubMenu;

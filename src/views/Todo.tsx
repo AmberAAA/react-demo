@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Redirect, RouteProps} from 'react-router'
 import './Todo.css'
 import store from '../store/store';
-import {Row, Col} from "antd";
 import {InterUser, TODO, url} from "../module";
 import {ChangeEvent, FormEvent} from "react";
 import axios from "axios";
@@ -10,6 +9,7 @@ import {ActionTypes} from "../store/action";
 import {sort} from "../module";
 import QueueAnim from "rc-queue-anim";
 import TodoModal from "./TodoModal";
+import {Row, Col} from "antd";
 
 interface State {
   user: InterUser,
