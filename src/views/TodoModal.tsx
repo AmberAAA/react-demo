@@ -17,7 +17,8 @@ interface Props {
 
 
 interface State {
-  input: string
+  input: string,
+  hasChanged: boolean
 }
 
 class TodoModal extends React.Component<Props, State> {
@@ -25,13 +26,15 @@ class TodoModal extends React.Component<Props, State> {
   constructor(props: Props, state: State) {
     super(props, state);
     this.state = {
-      input: ""
+      input: "",
+      hasChanged: false
     }
   }
 
   public componentWillReceiveProps = (nextProps: Readonly<Props>, nextContext: any): void => {
     this.setState({
-      input: ""
+      input: "",
+      hasChanged: false
     });
     if (nextProps.visible) {
       setTimeout(() => {
@@ -73,7 +76,7 @@ class TodoModal extends React.Component<Props, State> {
         {/*<p className={"gray-6"}>设置分类</p>*/}
         <div className="todo-modal-footer">
           <Button htmlType={"button"} type={"danger"} onClick={() => this.sendEmmit(this.props.onDelete)}>删除</Button>
-          <Button htmlType={"button"} type={"primary"} onClick={() => this.sendEmmit(this.props.onSave)}>确定</Button>
+          <Button htmlType={"button"} type={"primary"} disabled={!this.state.hasChanged}  onClick={() => this.sendEmmit(this.props.onSave)}>确定</Button>
           <Button htmlType={"button"} onClick={() => this.sendEmmit(this.props.onCancle)}>取消</Button>
         </div>
       </Modal>
@@ -88,12 +91,21 @@ class TodoModal extends React.Component<Props, State> {
     if (e.key.toLowerCase() === "enter" && value) {
       todo.list.push({name: value, finish: false});
       this.forceUpdate();
-      this.setState({input: ""})
+      this.setState({
+        input: "",
+        hasChanged: true
+      })
+    }
+    if (e.key === 'Escape') {
+      this.sendEmmit(this.props.onCancle)
     }
   }
 
   private deleteItem(index: number) {
     this.props.todo.list.splice(index, 1);
+    this.setState({
+      hasChanged: true
+    })
     this.forceUpdate();
   }
 }

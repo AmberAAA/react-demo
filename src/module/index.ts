@@ -5,9 +5,9 @@ export interface InterUser {
 }
 
 
-// const HOST = ``;
-// const HOST = `http://anborong.live`;
-const HOST = `http://39.98.92.253:10000`;
+const HOST = ``;
+// const HOST = `http://anborong.top`;
+// const HOST = `http://39.98.92.253:10000`;
 
 export const url = {
   auth: `${HOST}/api/login`,

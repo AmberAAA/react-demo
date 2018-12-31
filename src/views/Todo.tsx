@@ -69,6 +69,11 @@ class Todo extends React.Component<RouteProps, State> {
         list: []
       })
     }
+    if (e.key === 'Escape') {
+      this.setState({
+        input: ''
+      })
+    }
   };
 
 
@@ -119,16 +124,16 @@ class Todo extends React.Component<RouteProps, State> {
             </Col>
           </Row>
         </div>
-        <div className="right">
-          <nav>
-            <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-            </ul>
-          </nav>
-        </div>
+        {/*<div className="right">*/}
+          {/*<nav>*/}
+            {/*<ul>*/}
+              {/*<li>1</li>*/}
+              {/*<li>2</li>*/}
+              {/*<li>3</li>*/}
+              {/*<li>4</li>*/}
+            {/*</ul>*/}
+          {/*</nav>*/}
+        {/*</div>*/}
       </div>
     )
   }
@@ -243,7 +248,6 @@ class Todo extends React.Component<RouteProps, State> {
   private showModal = (todo: TODO, e: React.MouseEvent) => {
     e.preventDefault();
     const modifyTodo = JSON.parse(JSON.stringify(todo));
-    console.log(modifyTodo)
     this.setState({modifyTodo, TodoModalVisible: true})
   }
 
