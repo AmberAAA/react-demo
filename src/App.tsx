@@ -7,7 +7,7 @@ import 'antd/lib/icon/style/css'
 import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
 import 'antd/lib/button/style/css'
-import { Button } from 'antd'
+// import { Button } from 'antd'
 import store from "./store/store"
 
 const SubMenu = Menu.SubMenu;
@@ -27,8 +27,8 @@ class App extends React.Component {
             </MenuItemGroup>
           </SubMenu>
           <Menu.Item key="setting:2" ><Link to="/todo">Todo</Link></Menu.Item>
-          <Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button>登录</Button></Menu.Item>
-          <Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signup">注册</Link></Button></Menu.Item>
+          {/*<Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button><Link to="/signIn">注册</Link></Button></Menu.Item>*/}
+          {/*<Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signIn">注册</Link></Button></Menu.Item>*/}
         </Menu>
         <AppRouter/>
       </div>
@@ -37,8 +37,8 @@ class App extends React.Component {
 
   public componentDidMount(): void {
     let id: string | null = '';
+    const user = store.getState().user;
     this.store$ = store.subscribe(() => {
-      const user = store.getState().user
       if (user && id !== user._id) {
         id = user._id;
         window.localStorage.setItem('user', JSON.stringify(user))

@@ -69,6 +69,11 @@ class Todo extends React.Component<RouteProps, State> {
         list: []
       })
     }
+    if (e.key === 'Escape') {
+      this.setState({
+        input: ''
+      })
+    }
   };
 
   public renderInput = () => (
@@ -130,16 +135,16 @@ class Todo extends React.Component<RouteProps, State> {
           <this.renderTodoModal/>
           <this.renderTodo todos={this.state.todos}/>
         </div>
-        <div className="right">
-          <nav>
-            <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-            </ul>
-          </nav>
-        </div>
+        {/*<div className="right">*/}
+          {/*<nav>*/}
+            {/*<ul>*/}
+              {/*<li>1</li>*/}
+              {/*<li>2</li>*/}
+              {/*<li>3</li>*/}
+              {/*<li>4</li>*/}
+            {/*</ul>*/}
+          {/*</nav>*/}
+        {/*</div>*/}
       </div>
     )
   }
