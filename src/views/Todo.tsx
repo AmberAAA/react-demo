@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Redirect, RouteProps} from 'react-router'
 import './Todo.css'
 import store from '../store/store';
-import {Row, Col} from "antd";
 import {InterUser, TODO, url} from "../module";
 import {ChangeEvent, FormEvent} from "react";
 import axios from "axios";
@@ -10,6 +9,7 @@ import {ActionTypes} from "../store/action";
 import {sort} from "../module";
 import QueueAnim from "rc-queue-anim";
 import TodoModal from "./TodoModal";
+import {Row, Col} from "antd";
 
 interface State {
   user: InterUser,
@@ -135,6 +135,7 @@ class Todo extends React.Component<RouteProps, State> {
           <this.renderTodoModal/>
           <this.renderTodo todos={this.state.todos}/>
         </div>
+<<<<<<< HEAD
         {/*<div className="right">*/}
           {/*<nav>*/}
             {/*<ul>*/}
@@ -145,6 +146,18 @@ class Todo extends React.Component<RouteProps, State> {
             {/*</ul>*/}
           {/*</nav>*/}
         {/*</div>*/}
+=======
+        {/* <div className="right">
+          <nav>
+            <ul>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+          </nav>
+        </div> */}
+>>>>>>> dev
       </div>
     )
   }

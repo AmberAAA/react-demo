@@ -1,13 +1,10 @@
-import {Modal, Form, Input, Icon} from "antd";
 import * as React from "react";
-import 'antd/lib/modal/style/css'
-import 'antd/lib/form/style/css'
-import 'antd/lib/input/style/css'
 import {FormEvent} from "react";
 import store from "../store/store";
 import {ActionTypes} from "../store/action";
 import axios from "axios";
 import { url } from "../module"
+import {Modal, Form, Input, Icon} from "antd";
 
 const FormItem = Form.Item;
 

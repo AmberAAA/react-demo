@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/react-router-dom": "^4.3.1",
     "antd": "^3.10.9",
     "axios": "^0.18.0",
     "rc-queue-anim": "^1.6.8",
@@ -15,9 +14,9 @@
     "redux-devtools-extension": "^2.13.7"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "start": "react-app-rewired start --scripts-version react-scripts-ts",
+    "build": "react-app-rewired build --scripts-version react-scripts-ts",
+    "test": "react-app-rewired test --env=jsdom --scripts-version react-scripts-ts",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -25,6 +24,9 @@
     "@types/node": "^10.12.10",
     "@types/react": "^16.7.7",
     "@types/react-dom": "^16.0.10",
-    "typescript": "^3.1.6"
+    "react-app-rewired": "^1.6.2",
+    "ts-import-plugin": "^1.5.5",
+    "typescript": "^3.1.6",
+    "@types/react-router-dom": "^4.3.1"
   }
 }
