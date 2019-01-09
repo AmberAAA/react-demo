@@ -2,12 +2,7 @@ import * as React from 'react';
 import './App.css';
 import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
-import 'antd/lib/button/style/css'
-<<<<<<< HEAD
-// import { Button } from 'antd'
-=======
 import {Button, Menu, Icon} from 'antd'
->>>>>>> dev
 import store from "./store/store"
 
 const SubMenu = Menu.SubMenu;
@@ -29,15 +24,9 @@ class App extends React.Component {
               <Menu.Item key="setting:5"><Link to="/games">一个小游戏</Link> </Menu.Item>
             </MenuItemGroup>
           </SubMenu>
-<<<<<<< HEAD
-          <Menu.Item key="setting:2" ><Link to="/todo">Todo</Link></Menu.Item>
-          {/*<Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button><Link to="/signIn">注册</Link></Button></Menu.Item>*/}
-          {/*<Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signIn">注册</Link></Button></Menu.Item>*/}
-=======
           <Menu.Item key="setting:2"><Link to="/todo">Todo</Link></Menu.Item>
           <Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button>登录</Button></Menu.Item>
           <Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signup">注册</Link></Button></Menu.Item>
->>>>>>> dev
         </Menu>
         <AppRouter/>
       </div>
