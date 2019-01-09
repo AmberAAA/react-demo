@@ -2,7 +2,7 @@ import * as React from 'react';
 import './App.css';
 import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
-import {Button, Menu, Icon} from 'antd'
+import { Button, Menu, Icon } from 'antd'
 import store from "./store/store"
 
 const SubMenu = Menu.SubMenu;
@@ -18,7 +18,7 @@ class App extends React.Component {
     return <Router ref={ref => this.router = ref}>
       <div className="app">
         <Menu mode="horizontal">
-          <SubMenu title={<span className="submenu-title-wrapper"><Icon type="bars"/>练习DEMO</span>}>
+          <SubMenu title={<span className="submenu-title-wrapper"><Icon type="bars" />练习DEMO</span>}>
             <MenuItemGroup title={<span className="menu-group-title">布局</span>}>
               <Menu.Item key="setting:1"><Link to="/demo/girds">栅格布局</Link> </Menu.Item>
               <Menu.Item key="setting:5"><Link to="/games">一个小游戏</Link> </Menu.Item>
@@ -28,22 +28,30 @@ class App extends React.Component {
           <Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button>登录</Button></Menu.Item>
           <Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signup">注册</Link></Button></Menu.Item>
         </Menu>
-        <AppRouter/>
+        <AppRouter />
       </div>
     </Router>;
   }
 
   public componentDidMount(): void {
-    let id: string | null = '';
-    const user = store.getState().user;
+    let uid: any = null
     this.store$ = store.subscribe(() => {
-      if (user && id !== user._id) {
-        id = user._id;
+      const user = store.getState().user;
+      if (user && user._id && uid !== user.id) {
+        uid = user._id;
         window.localStorage.setItem('user', JSON.stringify(user))
       }
     })
+
+    /* 
+      为了不让报错，我也不知道为什么。
+      TODO: 下次有空再看。
+    */
     // @ts-ignore
-    this.router && this.router.history.push('/todo')
+    if (this.router && this.router.history.location.pathname !== '/signIn') {
+      // @ts-ignore
+      this.router.history.push('/todo')
+    }
   }
 
   public componentWillUnmount(): void {
