@@ -130,7 +130,7 @@ class Todo extends React.Component<RouteProps, State> {
           <this.renderTodoModal/>
           <this.renderTodo todos={this.state.todos}/>
         </div>
-        <div className="right">
+        {/* <div className="right">
           <nav>
             <ul>
               <li>1</li>
@@ -139,7 +139,7 @@ class Todo extends React.Component<RouteProps, State> {
               <li>4</li>
             </ul>
           </nav>
-        </div>
+        </div> */}
       </div>
     )
   }
