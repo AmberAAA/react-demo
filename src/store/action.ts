@@ -1,5 +1,6 @@
 export enum ActionTypes {
   PADDING = "PADDING",
+  CLEAERCACHE= "CLEAERCACHE",
   Auth = "[Auth]",
   AuthSuccess = "[Auth] Success",
   AuthFile = "[Auth] File",

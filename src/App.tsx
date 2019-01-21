@@ -4,11 +4,23 @@ import { HashRouter as Router, Link } from 'react-router-dom';
 import { Router as AppRouter } from './router';
 import { Button, Menu, Icon } from 'antd'
 import store from "./store/store"
+import {ActionTypes} from "./store/action"
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-class App extends React.Component {
+interface State {
+    uid: null | string
+}
+
+class App extends React.Component<{}, State> {
+
+  public constructor(props: Router, states: State) {
+    super(props)
+    this.state = {
+      uid: null
+    }
+  }
 
   private store$: any;
 
@@ -25,8 +37,10 @@ class App extends React.Component {
             </MenuItemGroup>
           </SubMenu>
           <Menu.Item key="setting:2"><Link to="/todo">Todo</Link></Menu.Item>
-          <Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button>登录</Button></Menu.Item>
-          <Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signup">注册</Link></Button></Menu.Item>
+          { !this.state.uid && <Menu.Item key="setting:3" className="cursor-auto float-right" disabled={true} type="primary" ><Button>登录</Button></Menu.Item>}
+          { !this.state.uid && <Menu.Item key="setting:4" className="cursor-auto float-right" disabled={true}><Button><Link to="/signup">注册</Link></Button></Menu.Item>}
+          { !!this.state.uid && <Menu.Item key="setting:5" className="cursor-auto float-right" disabled={true}><Button onClick={this.signOut}>登出</Button></Menu.Item>}
+          
         </Menu>
         <AppRouter />
       </div>
@@ -34,11 +48,11 @@ class App extends React.Component {
   }
 
   public componentDidMount(): void {
-    let uid: any = null
+
     this.store$ = store.subscribe(() => {
       const user = store.getState().user;
-      if (user && user._id && uid !== user.id) {
-        uid = user._id;
+      this.setState({uid: user && user._id ? user._id : null})
+      if (user && user._id && this.state.uid !== user.id) {
         window.localStorage.setItem('user', JSON.stringify(user))
       }
     })
@@ -56,6 +70,10 @@ class App extends React.Component {
 
   public componentWillUnmount(): void {
     this.store$()
+  }
+
+  public signOut ():void {
+    store.dispatch({type: ActionTypes.CLEAERCACHE, payload: null});
   }
 }
 

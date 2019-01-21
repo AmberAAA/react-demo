@@ -4,10 +4,9 @@ export interface InterUser {
   _id ?: string
 }
 
-
 const HOST = ``;
-// const HOST = `http://anborong.top`;
-// const HOST = `http://39.98.92.253:10000`;
+// const HOST = `https://anborong.top`;
+// const HOST = `https://anborong.top`;
 
 export const url = {
   auth: `${HOST}/api/login`,

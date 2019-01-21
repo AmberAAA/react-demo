@@ -69,13 +69,13 @@ class SignIn extends React.Component<any, any>{
 
     return (
       <Form action="#" onSubmit={this.submitHandle} className="sign-form">
-        <Modal title="登录"
+        <Modal title="注册"
                visible={this.state.show}
                confirmLoading={this.state.padding}
                closable={false}
                cancelText="取消"
                mask={true}
-               okText="登录"
+               okText="注册"
                width={420}
                onCancel={e => this.props.history.go(-1)}
                okButtonProps={{"htmlType": "submit"}}
@@ -89,7 +89,7 @@ class SignIn extends React.Component<any, any>{
                 required: true, message: '请输入邮箱',
               }],
             })(
-              <Input autoComplete="off" prefix={<Icon type="mail" style={{color: 'rgba(0,0,0,.25)'}}/>} />
+              <Input prefix={<Icon type="mail" style={{color: 'rgba(0,0,0,.25)'}}  />} />
             )}
           </FormItem>
           <FormItem label="密码" {...formItemLayout}>
@@ -97,9 +97,9 @@ class SignIn extends React.Component<any, any>{
               rules: [{
                 required: true, message: '请输入密码',
               }],
-            })(<Input autoComplete="off" prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />} placeholder="密码" type="password"/>)}
+            })(<Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />} placeholder="密码" type="password"/>)}
           </FormItem>
-          <span className="font-small"><Link to="/signup">没有账号点击注册</Link></span>
+          <span className="font-small"><Link to="/">没有账号点击注册</Link></span>
         </Modal>
       </Form>
     )
@@ -107,9 +107,7 @@ class SignIn extends React.Component<any, any>{
 
   private ajaxAuth = (values: any) => {
     store.dispatch({type: ActionTypes.PADDING, payload: true});
-    axios.get(url.auth, {
-      params: values
-    })
+    axios.post(url.auth, values)
       .then(data => {
         store.dispatch({type: ActionTypes.PADDING, payload: false});
         if (data.data.state === 0) {

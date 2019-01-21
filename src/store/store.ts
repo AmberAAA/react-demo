@@ -69,6 +69,11 @@ function AppReducer (state = initState, action:{type: string, payload: any}) {
       return state;
     }
 
+    case ActionTypes.CLEAERCACHE: {
+        window.localStorage.clear()
+        return initState
+    }
+
     default:
       return state;
   }

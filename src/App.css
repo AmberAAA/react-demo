@@ -15,3 +15,7 @@
 .pointer{
   cursor: pointer;
 }
+
+.font-small {
+    font-size: 12px;
+}
