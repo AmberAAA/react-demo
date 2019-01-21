@@ -4,8 +4,7 @@ import store from "../store/store";
 import {ActionTypes} from "../store/action";
 import axios from "axios";
 import { url } from "../module"
-import {Modal, Form, Input, Icon} from "antd";
-import { Link } from 'react-router-dom';
+import {Modal, Form, Input, Icon, message} from "antd";
 
 const FormItem = Form.Item;
 
@@ -99,7 +98,6 @@ class SignIn extends React.Component<any, any>{
               }],
             })(<Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />} placeholder="密码" type="password"/>)}
           </FormItem>
-          <span className="font-small"><Link to="/">没有账号点击注册</Link></span>
         </Modal>
       </Form>
     )
@@ -123,6 +121,7 @@ class SignIn extends React.Component<any, any>{
           }, 300)
         } else {
           store.dispatch({type: ActionTypes.AuthFile, payload: data.data.message})
+        message.error(data.data.message)
         }
       })
   }

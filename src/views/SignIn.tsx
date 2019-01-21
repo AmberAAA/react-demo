@@ -4,7 +4,7 @@ import store from "../store/store";
 import {ActionTypes} from "../store/action";
 import axios from "axios";
 import { url } from "../module"
-import {Modal, Form, Input, Icon} from "antd";
+import {Modal, Form, Input, Icon, message} from "antd";
 import { Link } from 'react-router-dom';
 
 const FormItem = Form.Item;
@@ -125,6 +125,7 @@ class SignIn extends React.Component<any, any>{
           }, 300)
         } else {
           store.dispatch({type: ActionTypes.AuthFile, payload: data.data.message})
+          message.error(data.data.message)
         }
       })
   }
