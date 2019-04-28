@@ -9,7 +9,7 @@ import {ActionTypes} from "../store/action";
 import {sort} from "../module";
 import QueueAnim from "rc-queue-anim";
 import TodoModal from "./TodoModal";
-import {Row, Col} from "antd";
+import {Row, Col, Button} from "antd";
 
 interface State {
   user: InterUser,
@@ -135,16 +135,11 @@ class Todo extends React.Component<RouteProps, State> {
           <this.renderTodoModal/>
           <this.renderTodo todos={this.state.todos}/>
         </div>
-        {/* <div className="right">
+        <div className="right">
           <nav>
-            <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-            </ul>
+            <Button type="primary" onClick={this.oneKeyDelete}>一键归档</Button>
           </nav>
-        </div> */}
+        </div>
       </div>
     )
   }
@@ -267,6 +262,12 @@ class Todo extends React.Component<RouteProps, State> {
     if (inputDom) {
       inputDom.focus()
     }
+  }
+
+  // 一键归档
+  private oneKeyDelete = () => {
+    // TODO: 我要的一键归档功能
+    // axios.delete(url.todo)
   }
 }
 
