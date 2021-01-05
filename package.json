@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.10.9",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "rc-queue-anim": "^1.6.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
